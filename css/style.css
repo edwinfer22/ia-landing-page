@@ -1,0 +1,227 @@
+:root {
+    --cyan: #00f2ff;
+    --purple: #7000ff;
+    --dark: #020205;
+    --card-bg: rgba(10, 10, 20, 0.8);
+}
+
+body {
+    background: var(--dark);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    /* Fondo de red neuronal animado sutil */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.1) 0%, transparent 50%),
+        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+}
+
+/* --- EFECTO DE ESCANEO DE FONDO --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(0, 242, 255, 0.2);
+    z-index: 1000;
+    animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100vh; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    background: linear-gradient(90deg, #fff, var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    letter-spacing: 5px;
+    color: #666;
+    margin-bottom: 60px;
+}
+
+.status-bar {
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+/* --- TARJETAS 3D INTERACTIVAS --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    perspective: 1000px; /* Necesario para el efecto 3D */
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.1s ease-out, box-shadow 0.3s;
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+    transform-style: preserve-3d; /* Efecto de profundidad */
+}
+
+.card.highlight {
+    border-color: var(--purple);
+}
+
+.card:hover {
+    border-color: var(--cyan);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+}
+
+/* Imagen Superior de la Tarjeta */
+.card-header {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+    filter: brightness(0.7) blue;
+}
+
+.card:hover .card-header img {
+    transform: scale(1.1);
+    filter: brightness(1);
+}
+
+.card-body {
+    padding: 30px;
+    transform: translateZ(30px); /* Eleva el contenido sobre la tarjeta */
+}
+
+.card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--cyan);
+}
+
+.card h3.highlight {
+    color: var(--purple);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 15px 0;
+    color: white;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+    color: #aaa;
+}
+
+.features li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* --- BOTONES CON INTERACTIVIDAD --- */
+.btn {
+    display: block;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn.highlight {
+    border-color: var(--purple);
+    color: var(--purple);
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: var(--cyan);
+    transition: all 0.4s;
+    z-index: -1;
+}
+
+.btn.highlight::before {
+    background: var(--purple);
+}
+
+.btn:hover {
+    color: black;
+}
+
+.btn:hover::before {
+    left: 0;
+}
+
+/* --- WHATSAPP FLOATING BOT --- */
+.whatsapp-bot {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s;
+    animation: pulse-green 2s infinite;
+}
+
+.whatsapp-bot:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.whatsapp-bot img {
+    width: 40px;
+}
